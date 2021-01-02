@@ -10,25 +10,17 @@ import {
 } from '@nestjs/common';
 import { query } from 'express';
 import { CreateMovieDTO } from 'src/dto/creat-movie.dto';
+import { UpdateMovieDTO } from 'src/dto/update-movie.dto';
 import { Movie } from 'src/entities/movies.entities';
-import { SayService } from 'src/say/say.service';
 import { MoviesService } from './movies.service';
 
 @Controller('movies')
 export class MoviesController {
-  constructor(
-    private readonly MoviesService: MoviesService,
-    private readonly SayService: SayService,
-  ) {}
+  constructor(private readonly MoviesService: MoviesService) {}
 
   @Get()
   getAll(): Movie[] {
     return this.MoviesService.getAll();
-  }
-
-  @Get('/hello')
-  sayHello(): string {
-    return this.SayService.sayHello();
   }
 
   @Get('/:id')
@@ -47,7 +39,7 @@ export class MoviesController {
   }
 
   @Patch('/:id')
-  patch(@Param('id') movieId: number, @Body() movieData: JSON) {
+  patch(@Param('id') movieId: number, @Body() movieData: UpdateMovieDTO) {
     this.MoviesService.patch(movieId, movieData);
   }
 }

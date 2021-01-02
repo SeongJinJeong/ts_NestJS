@@ -24,10 +24,9 @@ export class MoviesService {
     });
   }
 
-  delete(id: number): boolean {
+  delete(id: number): void {
     this.getOne(id);
     this.movies = this.movies.filter((movie) => movie.id !== id);
-    return true;
   }
 
   patch(id: number, updateData): void {
